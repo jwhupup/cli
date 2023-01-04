@@ -1,0 +1,32 @@
+{
+  "name": "@jwhupup/cli",
+  "version": "1.2.0",
+  "description": "An individual uses a scaffold with zero configuration",
+  "type": "module",
+  "bin": {
+    "create-app": "index.js"
+  },
+  "files": [
+		"index.js",
+    "README.md",
+    "templates"
+	],
+  "keywords": [
+    "cli",
+    "cf-cli",
+    "command",
+    "command-line",
+    "node",
+    "nodejs",
+    "javascript"
+  ],
+  "author": "jwhupup <1945623533@qq.com>",
+  "license": "MIT",
+  "repository": "jwhupup/cli",
+  "dependencies": {
+    "chalk": "^5.2.0",
+    "download-git-repo": "^3.0.2",
+    "inquirer": "^9.1.4",
+    "ora": "^6.1.2"
+  }
+}
