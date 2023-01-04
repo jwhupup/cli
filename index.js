@@ -66,7 +66,7 @@ inquirer
         spinner = ora('Downloading...').start();
 
         const src = path.resolve(__dirname, `./templates/${answers.framework}-${answers.bundler}-${answers.variant}`)
-        const dest = path.resolve(__dirname, answers.projectName)
+        const dest = path.resolve(process.cwd(), answers.projectName)
 
         copy(src, dest)
 
