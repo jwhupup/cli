@@ -1,10 +1,10 @@
 {
   "name": "@jwhupup/cli",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "An individual uses a scaffold with zero configuration",
   "type": "module",
   "bin": {
-    "create-app": "index.js"
+    "ca": "index.js"
   },
   "files": [
 		"index.js",
