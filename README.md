@@ -23,7 +23,7 @@ pnpm add -g @jwhupup/cli
 ### 使用
 
 ```shell
-create-app
+ca
 ```
 
 ### 贡献模板
