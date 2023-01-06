@@ -1,58 +1,52 @@
 #!/usr/bin/env node
 
-import fs from 'fs'
-import { fileURLToPath } from 'url'
-import path from 'path'
+import fs from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import path from 'node:path'
 import inquirer from "inquirer";
 import chalk from "chalk";
-import ora from "ora";
+import ora, { Ora } from "ora";
+
+interface Answers {
+    framework: string
+    bundler: string
+    variant: string
+    projectName: string
+}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const { version } = JSON.parse(fs.readFileSync(path.resolve(__dirname, './package.json'), 'utf8'))
 
-const templatePath = path.resolve(__dirname, 'templates')
-
 const FRAMEWORK = {
     type: "list",
     name: "framework",
     message: "Select a framework:",
-    choices: [],
+    choices: ['Vue3', 'React'],
 }
 
 const BUNDLER = {
     type: "list",
     name: "bundler",
     message: "Select a bundler:",
-    choices: [],
+    choices: ['Vite', 'Rollup'],
 }
 
 const VARIANT = {
     type: "list",
     name: "variant",
     message: "Select a variant:",
-    choices: [],
+    choices: ['Javascript', 'Typescript'],
 }
 
 const PROJECTNAME = {
     type: "input",
     name: "projectName",
     message: "Project name:",
-    default: "vue3-project",
+    default: "my-project",
 }
 
-for (const templateName of fs.readdirSync(templatePath)) {
-    const [framework, bundler, variant] = templateName.split('-')
-    FRAMEWORK.choices.push(framework)
-    BUNDLER.choices.push(bundler)
-    VARIANT.choices.push(variant)
-}
-
-FRAMEWORK.choices = [...new Set(FRAMEWORK.choices)]
-BUNDLER.choices = [...new Set(BUNDLER.choices)]
-VARIANT.choices = [...new Set(VARIANT.choices)]
-
-let spinner = null
+let spinner: Ora
 
 inquirer
     .prompt([
@@ -61,7 +55,7 @@ inquirer
         VARIANT,
         PROJECTNAME
     ])
-    .then((answers) => {
+    .then((answers: Answers) => {
         console.log(chalk.green(`version ${version}`))
         spinner = ora('Downloading...').start();
 
@@ -84,7 +78,7 @@ inquirer
         }
     });
 
-function copy(src, dest) {
+function copy(src: string, dest: string) {
     const stat = fs.statSync(src)
     if (stat.isDirectory()) {
         copyDir(src, dest)
@@ -93,7 +87,7 @@ function copy(src, dest) {
     }
 }
 
-function copyDir(srcDir, destDir) {
+function copyDir(srcDir: string, destDir: string) {
     fs.mkdirSync(destDir, { recursive: true })
     for (const file of fs.readdirSync(srcDir)) {
         const srcFile = path.resolve(srcDir, file)
